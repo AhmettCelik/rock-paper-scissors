@@ -1,6 +1,10 @@
-let roundCount = prompt("Enter game round count");
 let playerScore = 0;
 let computerScore = 0;
+let roundCount = getRoundCount();
+
+function getRoundCount() {
+    return prompt("Enter game round count");
+}
 
 function getComputerChoice() {
     options = ["rock", "paper", "scissors"];
@@ -64,19 +68,37 @@ function playRound() {
 
 }
 
+
+
 function playGame(roundCount) {
-    for(let i = 0; i < roundCount; i++) {
-        playRound();
-        if((i == roundCount - 1) && (computerScore == playerScore)) {
-            console.log("Extra round!!");
-            roundCount++;
+
+    let again = false;
+
+    do {
+        again = false;
+        
+        for(let i = 0; i < roundCount; i++) {
+            playRound();
+            if((i == roundCount - 1) && (computerScore == playerScore)) {
+                console.log("Extra round!!");
+                roundCount++;
+            }
         }
-    }
-    if(computerScore > playerScore) {
-        console.log("You Lose!")
-    }else if(playerScore > computerScore) {
-        console.log("You Win!");
-    }
+        if(computerScore > playerScore) {
+            console.log("You Lose!")
+        }else if(playerScore > computerScore) {
+            console.log("You Win!");
+        }
+
+        let inputForAgain = prompt("wanna again? yes or no");
+        inputForAgain == "yes" ? again = true : console.log("GAME OVER");
+        if(again) {
+            computerScore = 0;
+            playerScore = 0;
+            askAgain = getRoundCount();
+            roundCount = askAgain;
+        }
+    }while(again)
 }
 
 playGame(roundCount);
