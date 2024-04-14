@@ -13,7 +13,13 @@ let playerChoice = "rock";
 const rockButton = document.querySelector('#rock_btn');
 const paperButton = document.querySelector('#paper_btn');
 const scissorsButton = document.querySelector('#scissors_btn');
-
+const playAgainBtn = document.createElement("button");
+let buttonsDiv = document.getElementById("buttons");
+let selectedOptionsParagraph = document.createElement("p");
+let resultParagraph = document.createElement("p");
+let scoreParagraph = document.createElement("p");
+let winnerParagraph = document.createElement("p");
+let resultDiv = document.getElementById("result");
 
 
 rockButton.addEventListener("click", () => {
@@ -37,7 +43,6 @@ function getComputerChoice() {
     return result;
 }
 
-
 function findWinner(playerChoice, computerChoice) {
     let draw = (playerChoice == "rock" && computerChoice == "rock") || 
                (playerChoice == "paper" && computerChoice == "paper") || 
@@ -51,11 +56,7 @@ function findWinner(playerChoice, computerChoice) {
                     (playerChoice == "paper" && computerChoice == "rock") ||
                     (playerChoice == "scissors" && computerChoice == "paper");
 
-    let selectedOptionsParagraph = document.createElement("p");
-    let resultParagraph = document.createElement("p");
-    let scoreParagraph = document.createElement("p");
-    let resultDiv = document.getElementById("#result");
-
+    
     if(draw) {
         selectedOptionsParagraph.textContent = "player chose: " + playerChoice + " computer chose: " + computerChoice;
         resultParagraph.textContent = "Draw for this round";
@@ -74,10 +75,35 @@ function findWinner(playerChoice, computerChoice) {
         scoreParagraph.textContent = "Your score: " + playerScore + " Computer score: " + computerScore;
     }
 
-    result.appendChild(selectedOptionsParagraph);
-    result.appendChild(resultParagraph);
-    result.appendChild(scoreParagraph);
+    
+    resultDiv.innerHTML = "";
+    resultDiv.appendChild(selectedOptionsParagraph);
+    resultDiv.appendChild(resultParagraph);
+    resultDiv.appendChild(scoreParagraph);
 
+    if((playerScore == 5) || (computerScore == 5)) {
+        resultDiv.innerHTML = "";
+        (playerScore == 5) ? winnerParagraph.textContent = "Game Over! You Win!" : winnerParagraph.textContent = "Game Over! You Lose";
+        resultDiv.appendChild(scoreParagraph);
+        resultDiv.appendChild(winnerParagraph);
+        computerScore = 0;
+        playerScore = 0;
+        playAgain();
+    }
+
+}
+
+function playAgain() {
+    buttonsDiv.innerHTML = "";
+    playAgainBtn.textContent = "Play Again!"
+    resultDiv.appendChild(playAgainBtn);
+    playAgainBtn.addEventListener('click', () => {
+        resultDiv.innerHTML = "";
+        buttonsDiv.innerHTML = "";
+        buttonsDiv.appendChild(rockButton);
+        buttonsDiv.appendChild(paperButton);
+        buttonsDiv.appendChild(scissorsButton);
+    })
 }
 
 function playRound(playerChoice) {
