@@ -1,3 +1,11 @@
+// let roundCount = getRoundCount();
+
+/*
+function getRoundCount() {
+    return prompt("Enter game round count");
+}
+*/
+
 let playerScore = 0;
 let computerScore = 0;
 let options = ["rock", "paper", "scissors"];
@@ -6,13 +14,7 @@ const rockButton = document.querySelector('#rock_btn');
 const paperButton = document.querySelector('#paper_btn');
 const scissorsButton = document.querySelector('#scissors_btn');
 
-// let roundCount = getRoundCount();
 
-/*
-function getRoundCount() {
-    return prompt("Enter game round count");
-}
-*/
 
 rockButton.addEventListener("click", () => {
     playerChoice = options[0];
@@ -35,10 +37,6 @@ function getComputerChoice() {
     return result;
 }
 
-function checkInput(playerChoice) {
-    let continue_break = !((playerChoice == "rock") || (playerChoice == "paper") || (playerChoice == "scissors"));
-    return continue_break;
-}
 
 function findWinner(playerChoice, computerChoice) {
     let draw = (playerChoice == "rock" && computerChoice == "rock") || 
@@ -53,33 +51,38 @@ function findWinner(playerChoice, computerChoice) {
                     (playerChoice == "paper" && computerChoice == "rock") ||
                     (playerChoice == "scissors" && computerChoice == "paper");
 
+    let selectedOptionsParagraph = document.createElement("p");
+    let resultParagraph = document.createElement("p");
+    let scoreParagraph = document.createElement("p");
+    let resultDiv = document.getElementById("#result");
+
     if(draw) {
-        console.log("player chose: " + playerChoice + " computer chose: " + computerChoice);
-        console.log("Draw for this round");
+        selectedOptionsParagraph.textContent = "player chose: " + playerChoice + " computer chose: " + computerChoice;
+        resultParagraph.textContent = "Draw for this round";
         computerScore++;
         playerScore++;
-        console.log("Your score: " + playerScore + " Computer score: " + computerScore);
+        scoreParagraph.textContent = "Your score: " + playerScore + " Computer score: " + computerScore;
     }else if(computerWin) {
-        console.log("player chose: " + playerChoice + " computer chose: " + computerChoice);
-        console.log("You lose this round");
+        selectedOptionsParagraph.textContent = "player chose: " + playerChoice + " computer chose: " + computerChoice;
+        resultParagraph.textContent = "You lose this round";
         computerScore++;
-        console.log("Your score: " + playerScore + " Computer score: " + computerScore);
+        scoreParagraph.textContent = "Your score: " + playerScore + " Computer score: " + computerScore;
     }else if(playerWin) {
-        console.log("player chose: " + playerChoice + " computer chose: " + computerChoice);
-        console.log("You win this round!");
+        selectedOptionsParagraph.textContent = "player chose: " + playerChoice + " computer chose: " + computerChoice;
+        resultParagraph.textContent = "You win this round";
         playerScore++;
-        console.log("Your score: " + playerScore + " Computer score: " + computerScore);
+        scoreParagraph.textContent = "Your score: " + playerScore + " Computer score: " + computerScore;
     }
+
+    result.appendChild(selectedOptionsParagraph);
+    result.appendChild(resultParagraph);
+    result.appendChild(scoreParagraph);
+
 }
 
 function playRound(playerChoice) {
-    do {
         var computerChoice = getComputerChoice();
-        if(checkInput(playerChoice)) console.log("invalid value! Enter again...");
-
         findWinner(playerChoice, computerChoice);
-
-    }while(checkInput(playerChoice));
 }
 
 
