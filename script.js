@@ -1,20 +1,38 @@
 let playerScore = 0;
 let computerScore = 0;
-let roundCount = getRoundCount();
+let options = ["rock", "paper", "scissors"];
+let playerChoice = "rock";
+const rockButton = document.querySelector('#rock_btn');
+const paperButton = document.querySelector('#paper_btn');
+const scissorsButton = document.querySelector('#scissors_btn');
 
+// let roundCount = getRoundCount();
+
+/*
 function getRoundCount() {
     return prompt("Enter game round count");
 }
+*/
+
+rockButton.addEventListener("click", () => {
+    playerChoice = options[0];
+    playRound(playerChoice);
+});
+
+paperButton.addEventListener("click", () => {
+    playerChoice = options[1];
+    playRound(playerChoice);
+});
+
+scissorsButton.addEventListener("click", () => {
+    playerChoice = options[2];
+    playRound(playerChoice);
+});
 
 function getComputerChoice() {
-    options = ["rock", "paper", "scissors"];
     let index = Math.round(Math.random() * 2);
     let result = options[index];
     return result;
-}
-
-function getPlayerChoice() {
-    return prompt("Rock, Paper or Scissors?").toLowerCase();
 }
 
 function checkInput(playerChoice) {
@@ -54,22 +72,18 @@ function findWinner(playerChoice, computerChoice) {
     }
 }
 
-function playRound() {
-
+function playRound(playerChoice) {
     do {
-
-        var playerChoice = getPlayerChoice();
         var computerChoice = getComputerChoice();
         if(checkInput(playerChoice)) console.log("invalid value! Enter again...");
 
         findWinner(playerChoice, computerChoice);
 
     }while(checkInput(playerChoice));
-
 }
 
 
-
+/*
 function playGame(roundCount) {
 
     let again = false;
@@ -100,5 +114,4 @@ function playGame(roundCount) {
         }
     }while(again)
 }
-
-playGame(roundCount);
+*/
