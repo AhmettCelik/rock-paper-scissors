@@ -111,7 +111,6 @@ function playRound(playerChoice) {
         findWinner(playerChoice, computerChoice);
 }
 
-
 /*
 function playGame(roundCount) {
 
